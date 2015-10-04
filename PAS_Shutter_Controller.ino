@@ -34,8 +34,8 @@ void setup() {
 
 void loop() {
 
-  tempL = ((analogRead(A0) * (5000.0 / 1023.0)) - 0.5) * 100; // temperature (C) of L1 -- sensor on A0
-  if (tempL > 250.0) shutterMotor->step(49, BACKWARD, DOUBLE);  // close shutter if too hot
+  tempL = ((analogRead(A0) * (5000.0 / 1023.0)) - 500.0) / 10.0; // temperature (C) of L1 -- sensor on A0
+  if (tempL > 250.0) shutterMotor->step(49, BACKWARD, DOUBLE);   // close shutter if too hot
   
   while (Serial.available() > 0) { 
     inChar[i] = Serial.read();
@@ -50,11 +50,11 @@ void loop() {
   }
   
   if (inCharStr == "*IDN?\n") {
-    Serial.println("I'm the Shutter & Mirror Controller!");
+    Serial.println("I'm the Shutter Controller!");
     Serial.println("v2.0, AeroSmith Lab, UGA (AF 2015)");
   }
   
-  if (inCharStr == "t.l1\n") {
+  if (inCharStr == "t.l\n") {
     Serial.println(tempL); 
   }
   
